@@ -80,10 +80,10 @@ export default function PesquisaCliente() {
     const params = new URLSearchParams(location.search);
     const pesquisaId = params.get("id");
     
-    if (pesquisaId) {
+    if (pesquisaId && pesquisaId !== 'undefined' && pesquisaId !== 'null') {
       loadPesquisaData(pesquisaId);
     } else {
-      setError("ID da pesquisa não fornecido.");
+      setError("Link inválido. Por favor, escaneie o QR Code novamente.");
       setLoading(false);
     }
   }, [location.search]);
