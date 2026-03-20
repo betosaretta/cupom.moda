@@ -1,6 +1,5 @@
-
 import React, { useState, useEffect } from "react";
-import { User } from "@/entities/all";
+import { base44 } from "@/api/base44Client";
 import { createPageUrl } from "@/utils";
 import { 
   Gift, 
@@ -24,7 +23,7 @@ export default function Home() {
   useEffect(() => {
     const checkAuthAndRedirect = async () => {
       try {
-        await User.me();
+        await base44.auth.me();
         window.location.href = createPageUrl('Dashboard');
       } catch (error) {
         // User not authenticated, allow the page to render.
@@ -37,7 +36,7 @@ export default function Home() {
   const handleGetStarted = async () => {
     setLoading(true);
     try {
-      await User.loginWithRedirect(window.location.origin + createPageUrl('Dashboard'));
+      await base44.auth.redirectToLogin(window.location.origin + createPageUrl('Dashboard'));
     } catch (error) {
       console.error("Erro no login:", error);
       setLoading(false);
